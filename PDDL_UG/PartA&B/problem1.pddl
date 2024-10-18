@@ -29,7 +29,6 @@
 
     (:goal
         (and
-            (not (imageAt d w1))
             (not (imageAt d w3))
             (not (scanAt d w4))
             (not (uuvStorageFull uuv))
