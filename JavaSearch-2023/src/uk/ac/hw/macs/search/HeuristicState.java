@@ -29,13 +29,14 @@ public class HeuristicState implements State {
 	
 	public int getHeuristic() {
 		if(goal) {
-			return 0;
+			return 0; // If this is the goal state, the heuristic is zero
 		}
-		
+		// Cast goalNodes value to HeuristicState and get the coordinates of the goal node
 		HeuristicState goalState = (HeuristicState) goalNode.getValue();
 		int goalX = goalState.x;
 		int goalY = goalState.y;
 		
+		// Calculate and return the Manhattan distance between the current state and the goal state
 		return Math.abs (this.x - goalX) + Math.abs(this.y - goalY);
 	}
 	

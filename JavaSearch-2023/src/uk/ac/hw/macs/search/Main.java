@@ -8,7 +8,7 @@ public class Main {
 
 	
 	public static void main(String[] args) {
-		
+		// Creates the grid of nodes and their coordinates
 		/*Node G = new Node(new HeuristicState("G", true, 3, 6));
 		Node S = new Node(new HeuristicState("S", 1, 1, G));
 		Node A = new Node(new HeuristicState("A", 1, 2, G));
@@ -30,6 +30,7 @@ public class Main {
 		Node K = new Node(new HeuristicState("K", 2, 6, G));
 		Node T = new Node(new HeuristicState("T", 4, 6, G));	
 		
+		//Adds costs between each letter
 		S.addChild(A, 1);
 		S.addChild(E, 2);
 		A.addChild(F, 2);
