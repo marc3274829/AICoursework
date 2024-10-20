@@ -27,13 +27,6 @@
     ; Predicates
     ; -------------------------------
 
-    ; EXAMPLE
-
-    ; (:predicates
-    ;     (no_arity_predicate)
-    ;     (one_arity_predicate ?p - parameter_type)
-    ; )
-
     (:predicates
         (belongsTo ?u - uuv ?s - ship)
         (at ?u - UUV ?l - location)
@@ -48,9 +41,9 @@
         (uuvReturned ?u - UUV)
         (shipReceivedTransmission ?s - ship)
         (beenDeployedBefore ?u - UUV)
-        (engineerAtBay ?e - engineer)
-        (engineerAtCC ?e - engineer)
-        (engineerBelongsTo ?e - engineer ?sh - ship )
+        (engineerAtBay ?e - engineer)                        ; Engineer is at the bay
+        (engineerAtCC ?e - engineer)                         ; Engineer is at the control centre
+        (engineerBelongsTo ?e - engineer ?sh - ship )        ; Which ship the engineer belongs to
         
     )
 
@@ -58,24 +51,10 @@
     ; Actions
     ; -------------------------------
 
-    ; EXAMPLE
-
-    ; (:action action-template
-    ;     :parameters (?p - parameter_type)
-    ;     :precondition (and
-    ;         (one_arity_predicate ?p)
-    ;     )
-    ;     :effect 
-    ;     (and 
-    ;         (no_arity_predicate)
-    ;         (not (one_arity_predicate ?p))
-    ;     )
-    ; )
-
     (:action deploying_UUV
         :parameters (?u - UUV ?l - location ?s - ship ?e - engineer)
         :precondition (and
-                            (engineerBelongsTo ?e ?s)
+                            (engineerBelongsTo ?e ?s)                   ; Engineer of the correct ship has to be in the bay to deploy the UUV
                             (engineerAtBay ?e)
                             (belongsTo ?u ?s)
                             (shipAt ?s ?l)
@@ -131,7 +110,7 @@
     (:action UUV_Transmits_Data
         :parameters (?u - UUV ?s - ship ?e - engineer)
         :precondition (and
-                        (engineerBelongsTo ?e ?s)
+                        (engineerBelongsTo ?e ?s)                            ; Engineer of the correct ship has to be in the control centre to recieve the transmission
                         (engineerAtCC ?e)
                         (belongsTo ?u ?s)
                         (uuvStorageFull ?u)
@@ -160,7 +139,7 @@
       (:action UUV_Returns_To_Ship
         :parameters (?u - UUV ?l - location ?s - ship ?e - engineer)
         :precondition (and
-                        (engineerBelongsTo ?e ?s)
+                        (engineerBelongsTo ?e ?s)                                ; Engineer has to be on the correct ship and in the bay for the UUV to return
                         (engineerAtBay ?e)
                         (belongsTo ?u ?s)
                         (shipAt ?s ?l)
@@ -186,29 +165,29 @@
                 )
     )
 
-    (:action Engineer-Moves-To-Bay
+    (:action Engineer-Moves-To-Bay                                ; Moves the engineer to the bay
         :parameters (?e - engineer ?sh - ship)
         :precondition (and
-                            (engineerBelongsTo ?e ?sh)
-                            (engineerAtCC ?e)
+                            (engineerBelongsTo ?e ?sh)            ; Engineer has to be on the correct ship
+                            (engineerAtCC ?e)                     ; Engineer has to be in the control centre to move to the bay
 
                         )
         :effect (and
-                    (not (engineerAtCC ?e))
-                    (engineerAtBay ?e)
+                    (not (engineerAtCC ?e))                       ; Engineer is no longer in the control centre
+                    (engineerAtBay ?e)                            ; Engineer is now in the bay
                 )
     )
 
-    (:action Engineer-Moves-To-CC
+    (:action Engineer-Moves-To-CC                                 ; Moves the engineer to the control centre
         :parameters (?e - engineer ?sh - ship)
         :precondition (and
-                            (engineerBelongsTo ?e ?sh)
-                            (engineerAtBay ?e)
+                            (engineerBelongsTo ?e ?sh)            ; Engineer has to be on the correct ship
+                            (engineerAtBay ?e)                    ; Engineer has to be in the bay to move to the control centre
 
                         )
         :effect (and
-                    (not (engineerAtBay ?e))
-                    (engineerAtCC ?e)
+                    (not (engineerAtBay ?e))                      ; Engineer is no longer in the bay
+                    (engineerAtCC ?e)                             ; Engineer is now in the control centre
                 )
     )
 
