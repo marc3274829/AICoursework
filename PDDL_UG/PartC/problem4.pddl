@@ -24,8 +24,8 @@
     (:init
         (engineerBelongsTo e1 sh1)
         (engineerBelongsTo e2 sh2)
-        (engineerAtBay e1)
-        (engineerAtCC e2)
+        (engineerAtBay e1)                    ; Engineer 1 starts in the bay
+        (engineerAtCC e2)                     ; Engineer 2 starts in the control centre
         (belongsTo uuv1 sh1)
         (belongsTo uuv2 sh2)
         (shipAt sh1 w2)
