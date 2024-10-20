@@ -19,11 +19,12 @@
     )
 
     (:init
-        (belongsTo uuv1 sh1)
+        (belongsTo uuv1 sh1
+        (at uuv1 w2)                             ; UUV 1 starts at waypoint 2
         (belongsTo uuv2 sh2)
         (shipAt sh1 w2)
         (shipAt sh2 w1)
-        (not (beenDeployedBefore uuv1))
+        (beenDeployedBefore uuv1)                ; UUV 1 starts off deployed
         (not (beenDeployedBefore uuv2))
         (pathBetween w1 w2)
         (pathBetween w2 w1)
