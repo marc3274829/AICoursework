@@ -6,13 +6,6 @@
     ; Types
     ; -------------------------------
 
-    ; EXAMPLE
-
-    ; (:types
-    ;     parent_type
-    ;     child_type - parent_type
-
-    ; )
     (:types
         UUV
         location
